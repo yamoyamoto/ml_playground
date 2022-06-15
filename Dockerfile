@@ -1,5 +1,5 @@
 FROM jupyter/datascience-notebook:latest
 
-RUN pip install imblearn black black[jupyter] kaggle lazypredict sklearn
+RUN pip install imblearn black black[jupyter] kaggle lazypredict sklearn lingam torch transformers
 
 COPY --chown=jovyan ./kaggle.json /home/jovyan/.kaggle/
