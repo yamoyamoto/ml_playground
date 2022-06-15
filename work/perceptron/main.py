@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 MAX_EPOCH = 1000
 LEARNING_RATE = 0.00001
 
@@ -13,6 +14,7 @@ print("===========data===========\n\n")
 p = 0
 w = np.array([[0, 1, -1]])
 correct_answers_num_sum = 0
+accuracy_list = []
 for i in range(MAX_EPOCH):
   epoch = i + 1
   correct_answers_num = 0
@@ -39,7 +41,12 @@ for i in range(MAX_EPOCH):
       break
   
   if epoch % 50 == 0:
-    print("epoch: {0} ==> 正解率(平均): {1}%".format(epoch, correct_answers_num_sum/len(data)/50*100))
+    accuracy_avarage = correct_answers_num_sum/len(data)/50*100
+    print("epoch: {0} ==> 正解率(平均): {1}%".format(epoch, accuracy_avarage))
+    accuracy_list.append([epoch, accuracy_avarage])
     correct_answers_num_sum = 0
   else:
     correct_answers_num_sum += correct_answers_num
+
+accuracy_list = np.array(accuracy_list)
+np.savetxt("accuracy.csv", accuracy_list, delimiter=",")
