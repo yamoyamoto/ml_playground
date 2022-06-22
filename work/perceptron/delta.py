@@ -9,10 +9,16 @@ def g(w0, w1, x1, w2, x2):
   return w0 + w1*x1 + w2*x2
 
 def f(y):
-  return 1 / (1+math.exp(y))
+  try:
+    return 1 / (1+math.exp(y))
+  except:
+    return 0
 
 def delta_base(t, y):
-  return (t - f(y)) * (-math.exp(y)) / ((1 + math.exp(y))**2)
+  try:
+    return (t - f(y)) * (-math.exp(y)) / ((1 + math.exp(y))**2)
+  except:
+    return 0
 
 MAX_EPOCH = 10000
 LEARNING_RATE = 0.001
@@ -24,7 +30,7 @@ print(data)
 print("===========data===========\n\n")
 
 p = 0
-w = np.array([[0, -2, 4]])
+w = np.array([[0, -1, 2]])
 error_sum = 0
 correct_answers_num_sum = 0
 accuracy_list = []
@@ -35,7 +41,7 @@ for i in range(MAX_EPOCH):
     x = np.array([[1, row["w_num"], row["b_num"]]])
     y = np.dot(w, x.reshape(3, 1))
     t = 0 if row["target"] == "W" else 1
-    delta = np.array([[w[0][0]*delta_base(t, y), w[0][1]*delta_base(t, y), w[0][2]*delta_base(t, y)]])
+    delta = np.array([[delta_base(t, y), x[0][1]*delta_base(t, y), x[0][2]*delta_base(t, y)]])
     w = w - LEARNING_RATE*delta
     # print("delta: ", w)
     # print("Error: ", (t - f(y)) ** 2 / 2)
