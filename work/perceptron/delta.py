@@ -56,8 +56,6 @@ for i in range(MAX_EPOCH):
         error_avarage = error_sum/len(data)*100/CHECK_POINT_EPOCH
         error_list.append([epoch, error_avarage])
         error_sum = 0
-        # print("epoch: {0} ==> 誤差平均: {1},  w:{2}".format(
-        #     epoch, error_avarage, w))
 
     correct_answers_num_sum += correct_answers_num
     if epoch % CHECK_POINT_EPOCH == 0:
@@ -65,8 +63,6 @@ for i in range(MAX_EPOCH):
             len(data)*100/CHECK_POINT_EPOCH
         accuracy_list.append([epoch, accuracy_avarage])
         correct_answers_num_sum = 0
-        # print("epoch: {0} ==> 正解率(平均): {1}%".format(
-        #     epoch, accuracy_avarage))
 
 accuracy_list = np.array(accuracy_list)
 error_list = np.array(error_list)
